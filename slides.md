@@ -1,4 +1,4 @@
-# Reactive Thinking in the iOS Development
+# Reactive Thinking in iOS Development
 
 ### @pepibumur / @saky
 
@@ -6,23 +6,91 @@
 
 ---
 
-## Syntax highlighting
-
-It’s _**sooo easy**_ to show `codeSamples();` in your presentations. Deckset applies syntax highlighting and scales the type size so it always looks great.
+# Programming Paradigms
 
 ---
 
-### Hello World!
+### Imperative Programming
+### Reactive Programming
 
-```javascript
-function myFunction(){
-	alert(“Hello World!”)
-};
-```
+---
 
-### **loooong** lines are scaled down
+### _Imperative Programming_
+### Reactive Programming
 
-```objectivec
-UIView *someView = [[UIView alloc] init];
-NSString *string = @"some string that is really, really, really really long, and has many, many, many words";
-```
+---
+
+### Imperative Programming
+### _Reactive Programming_
+
+---
+
+### Imperative Programming
+### __Functional__ Reactive Programming
+
+---
+
+# Motivation
+
+---
+
+## Motivation
+
+- Inmutability
+- Side states safe (clear source of truth)
+- Binding
+- Encapsulated Observable actions
+- Composable
+- Ease operatiosn
+- Threading (observer & execute)
+
+---
+
+# Reactive Thinking
+
+---
+
+## Creating Observables
+
+- External actions
+- Existing Patterns
+- Backend actions
+
+---
+
+## Combining and plying with Observables
+
+---
+
+## Observing
+
+- Binding
+- Subscribing
+
+---
+
+#Caveats
+
+---
+
+## Debugging
+
+---
+
+## Retain cycles
+
+---
+
+## Threading?
+
+---
+
+# Conclusions
+
+---
+
+# Extra
+
+rxmarbles.cmo
+http://community.rxswift.org
+
