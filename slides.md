@@ -137,9 +137,35 @@ let todo: String = "Move the motivatino points to different slides to make it dy
 
 ---
 
+#### _Creating_ observables
+####  _Combining_ observables
+#### _Observing_ observables
+
+---
+
 ### _Creating_ observables
 ####  _Combining_ observables
 #### _Observing_ observables
+
+---
+
+
+- External actions
+
+```swift
+let button = UIButton()
+button.rx_controlEvent(.TouchUpInside)
+  .subscribeNext { _ in
+    print("The button was tapped")
+  }
+```
+
+---
+
+## Creating Observables
+
+- Existing Patterns
+- Backend actions
 
 ---
 
@@ -152,14 +178,6 @@ let todo: String = "Move the motivatino points to different slides to make it dy
 #### _Creating_ observables
 ####  _Combining_ observables
 ### _Observing_ observables
-
----
-
-## Creating Observables
-
-- External actions
-- Existing Patterns
-- Backend actions
 
 ---
 
