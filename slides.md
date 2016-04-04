@@ -4,6 +4,7 @@
 
 ![image](https://images.unsplash.com/photo-1433190152045-5a94184895da?crop=entropy&dpr=2&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1700)
 
+<!-- PEPI -->
 ---
 
 # Who?
@@ -22,16 +23,20 @@ Twitter: [saky](https://github.com/saky)
 
 _[GitDo.io](http://gitdo.io) our spare time project_
 
+<!-- PEPI -->
+
 ---
 
 # Index
 
 - Programming Paradigms
+- **Reactive** Libraries
 - **Reactive** Motivation
 - **Reactive** Thinking
 - **Reactive** Caveats
 - Conclusion
 
+<!-- PEPI -->
 ---
 
 ## Paradigms :book:
@@ -39,16 +44,22 @@ _[GitDo.io](http://gitdo.io) our spare time project_
 
 ![fill](images/background_dog.jpeg)
 
+<!-- PEPI -->
+
 ---
 
 ### [Wikipedia](https://en.wikipedia.org/wiki/Programming_paradigm)
 
 Data-Driven, [**Declarative**](https://en.wikipedia.org/wiki/Declarative_programming), Dynamic, End-User, Event-Driven, Expression-Oriented, Feature-Oriented, Function-level, Generic, [**Imperative**](https://en.wikipedia.org/wiki/Imperative_programming), Inductive, Language Oriented, Metaprogramming, Non-Structured, Nondeterministic, Parallel computing, Point-free Style, Structured, Value-Level, Probabilistic
 
+<!-- PEPI -->
+
 ---
 
 ### _Imperative Programming_
 ### Declarative Programming
+
+<!-- PEPI -->
 
 ---
 
@@ -56,10 +67,14 @@ Data-Driven, [**Declarative**](https://en.wikipedia.org/wiki/Declarative_program
 let todo: String = "Slide explaining the imperative programming with an example"
 ```
 
+<!-- PEPI -->
+
 ---
 
 ### Imperative Programming
 ### _Declarative Programming_
+
+<!-- PEPI -->
 
 ---
 
@@ -76,6 +91,7 @@ let examples: [String] = [
 	"Reactive programming"
 ]
 ```
+<!-- PEPI -->
 
 ---
 
@@ -83,23 +99,34 @@ let examples: [String] = [
 ### _Declarative Programming_
 #### _Reactive Programming_
 
+<!-- PEPI -->
 ---
 
 ```swift
 let todo: String = "Slide explaining the reactive programming with an example"
 ```
 
+<!-- PEPI -->
 ---
 
 ### Imperative Programming
 ### _Declarative Programming_
 #### _Functional_ Reactive Programming
 
+<!-- PEPI -->
 ---
 
 ```swift
 let todo: String = "Slide explaining the role of functional in reactive programming"
 ```
+
+<!-- PEPI -->
+
+---
+
+## Reactive Libraries
+
+<!-- SAKY -->
 
 ---
 
@@ -112,16 +139,18 @@ let todo: String = "Slide explaining the role of functional in reactive programm
 ---
 
 ```swift
-let todo: String = "Move the motivatino points to different slides to make it dynamic"
+let todo: String = "Move the motivation points to different slides to make it dynamic"
 ```
 
-<!-- - Inmutability
+- Inmutability
 - Side states safe (clear source of truth)
 - Binding
 - Encapsulated Observable actions
 - Composable
 - Ease operatiosn
-- Threading (observer & execute) -->
+- Threading (observer & execute)
+
+<!-- SAKY -->
 
 ---
 
@@ -129,26 +158,29 @@ let todo: String = "Move the motivatino points to different slides to make it dy
 
 ![fill](images/background_thinking.jpeg)
 
+<!-- PEPI -->
 ---
 
 ## Thinking in terms of
 # _Observables_
 #### Or _Signals/Producers_ in ReactiveCocoa
 
+<!-- PEPI -->
 ---
 
 #### _Creating_ observables
 ####  _Combining_ observables
 #### _Observing_ observables
+<!-- PEPI -->
 
 ---
 
 ### _Creating_ observables
 ####  _Combining_ observables
 #### _Observing_ observables
+<!-- PEPI -->
 
 ---
-
 
 - External actions
 
@@ -159,6 +191,7 @@ button.rx_controlEvent(.TouchUpInside)
     print("The button was tapped")
   }
 ```
+<!-- PEPI -->
 
 ---
 
@@ -167,17 +200,23 @@ button.rx_controlEvent(.TouchUpInside)
 - Existing Patterns
 - Backend actions
 
+<!-- PEPI -->
+
 ---
 
 #### _Creating_ observables
 ###  _Combining_ observables
 #### _Observing_ observables
 
+<!-- PEPI -->
+
 ---
 
 #### _Creating_ observables
 ####  _Combining_ observables
 ### _Observing_ observables
+
+<!-- PEPI -->
 
 ---
 
@@ -187,6 +226,7 @@ button.rx_controlEvent(.TouchUpInside)
 ```swift
 let todo: String = "Show some examples of operators"
 ```
+<!-- PEPI -->
 
 ---
 
@@ -195,11 +235,15 @@ let todo: String = "Show some examples of operators"
 - Binding
 - Subscribing
 
+<!-- PEPI -->
+
 ---
 
 # :weary: Caveats
 #### _Because yes..._
 #### _it couldn't be perfect_
+
+<!-- SAKY -->
 
 <br><br>
 
@@ -212,6 +256,8 @@ let todo: String = "Show some examples of operators"
 ```swift
 let todo: String = "Add code example"
 ```
+<!-- SAKY -->
+
 
 ---
 
@@ -220,6 +266,7 @@ let todo: String = "Add code example"
 ```swift
 let todo: String = "Add code example"
 ```
+<!-- SAKY -->
 
 ---
 
@@ -231,15 +278,36 @@ let todo: String = "Add code example"
 
 ---
 
+## A great **power** comes with a great **responsibility**
+
+![fit](images/background_spiderman.png)
+
+<!-- SAKY -->
+---
+
 # Conclusions
+
+<!-- PEPI -->
 
 ---
 
-# Extra
+# References
 
 rxmarbles.cmo
 http://community.rxswift.org
 
+<!-- PEPI -->
+
 ---
 
 ## We are hiring
+#### pepi@soundcloud.com - isaac@letgo.com
+####  :snowflake: BERLIN - BARCELONA :palm_tree:
+
+![fill](images/background_hiring.jpg)
+
+---
+
+GITDO
+
+<!-- PEPI -->
