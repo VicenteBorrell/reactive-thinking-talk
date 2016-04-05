@@ -4,7 +4,6 @@
 
 ![image](https://images.unsplash.com/photo-1433190152045-5a94184895da?crop=entropy&dpr=2&fit=crop&fm=jpg&h=975&ixjsv=2.1.0&ixlib=rb-0.3.5&q=50&w=1700)
 
-<!-- PEPI -->
 ---
 
 # Who?
@@ -23,8 +22,6 @@ Twitter: [saky](https://github.com/saky)
 
 _[GitDo.io](http://gitdo.io) our spare time project_
 
-<!-- PEPI -->
-
 ---
 
 # Index
@@ -36,15 +33,12 @@ _[GitDo.io](http://gitdo.io) our spare time project_
 - **Reactive** Caveats
 - Conclusion
 
-<!-- PEPI -->
 ---
 
 ## Paradigms :book:
-#### _A bit of theory_
+#### _Ways of seeing the world when it comes to programming_
 
 ![fill](images/background_dog.jpeg)
-
-<!-- PEPI -->
 
 ---
 
@@ -52,81 +46,130 @@ _[GitDo.io](http://gitdo.io) our spare time project_
 
 Data-Driven, [**Declarative**](https://en.wikipedia.org/wiki/Declarative_programming), Dynamic, End-User, Event-Driven, Expression-Oriented, Feature-Oriented, Function-level, Generic, [**Imperative**](https://en.wikipedia.org/wiki/Imperative_programming), Inductive, Language Oriented, Metaprogramming, Non-Structured, Nondeterministic, Parallel computing, Point-free Style, Structured, Value-Level, Probabilistic
 
-<!-- PEPI -->
+---
+
+### Imperative Programming
+### Declarative Programming
 
 ---
 
 ### _Imperative Programming_
 ### Declarative Programming
 
-<!-- PEPI -->
-
+---
+# How? 🤔
 ---
 
 ```swift
-let todo: String = "Slide explaining the imperative programming with an example"
+func userDidSearch(term: String) {
+	let apiReults = api.search(term: term).execute()
+	self.items = self.adaptResults(apiResults)
+	self.tableView.reloadData()
+}
 ```
 
-<!-- PEPI -->
+---
+
+## Sequence of *steps*
+### that happen in *order*
+
+---
+
+## *Natural* way to program
+
+---
+
+## Execution *state*
+#### *(aka side effect)*
 
 ---
 
 ### Imperative Programming
 ### _Declarative Programming_
 
-<!-- PEPI -->
+---
+
+# What? 🤔
 
 ---
 
 ```swift
-let todo: String = "Slide explaining the declarative programming with an example"
-let link: String = "https://en.wikipedia.org/wiki/Declarative_programming"
-let keywords: [String] = [
-	"what instead of how",
-	"it doesn't describe the control flow"
-]
-let examples: [String] = [
-	"Database query languages",
-	"Functional programming",
-	"Reactive programming"
-]
+let predicate = NSPredicate(format: "name == %@", "Pedro")
+let regex = NSRegularExpression(pattern: ".+", options: 0)
 ```
-<!-- PEPI -->
 
 ---
 
-### Imperative Programming
-### _Declarative Programming_
-#### _Reactive Programming_
+## It *doesn't* describe the control flow
 
-<!-- PEPI -->
+---
+
+## *XML*
+
+---
+
+## XML
+## *HTML*
+
+---
+
+## XML
+## HTML
+## *SLQ*
+
+---
+
+## XML
+## HTML
+## SLQ
+## *Reactive Programming*
+
+---
+
+## *Asynchronous* data-flow programming
+#### Describes the state propagation
+
+####### [The introduction to Reactive Programming that you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
+
 ---
 
 ```swift
-let todo: String = "Slide explaining the reactive programming with an example"
+self.fetchAccountCommandFactory.githubAccount()
+  .map { $0.hasFeature(.ImagePicker) }
+  .observeOn(MainScheduler.instance)
+  .subscribeNext { [weak self] hasFeature in
+      if hasFeature {
+          self?.view?.showImagePicker()
+      } else {
+          self?.openSubscriptionView()
+      }
+  }
+  .addDisposableTo(self.disposeBag)
 ```
 
-<!-- PEPI -->
 ---
 
-### Imperative Programming
-### _Declarative Programming_
-#### _Functional_ Reactive Programming
+## _Functional_ Reactive Programming
+### *(aka FRP)*
 
-<!-- PEPI -->
 ---
 
-```swift
-let todo: String = "Slide explaining the role of functional in reactive programming"
-```
+## Describes *how* data transform from one state to another and *what* triggers it
 
-<!-- PEPI -->
+---
+
+## State contained in a *tree* of transformation *nodes*
+### (functionally pure)
 
 ---
 
 ## Reactive Libraries
 
-<!-- SAKY -->
+- [RxSwift](https://github.com/ReactiveX/RxSwift)
+- [ReactiveCocoa](https://github.com/reactivecocoa/reactivecocoa)
+- [BrightFutures](https://github.com/Thomvis/BrightFutures)
+
+![fill](images/background_reading.jpg)
 
 ---
 
@@ -283,11 +326,14 @@ let todo: String = "Add code example"
 ![fit](images/background_spiderman.png)
 
 <!-- SAKY -->
+
+---
+
+![](images/pug_gif.gif)
+
 ---
 
 # Conclusions
-
-<!-- PEPI -->
 
 ---
 
