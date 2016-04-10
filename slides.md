@@ -168,6 +168,7 @@ self.fetchAccountCommandFactory.githubAccount()
 - [RxSwift](https://github.com/ReactiveX/RxSwift)
 - [ReactiveCocoa](https://github.com/reactivecocoa/reactivecocoa)
 - [BrightFutures](https://github.com/Thomvis/BrightFutures)
+- _More coming_
 
 ![fill](images/background_reading.jpg)
 
@@ -180,10 +181,6 @@ self.fetchAccountCommandFactory.githubAccount()
 
 
 ---
-
-```swift
-let todo: String = "Move the motivation points to different slides to make it dynamic"
-```
 
 - Inmutability
 - Side states safe (clear source of truth)
@@ -201,31 +198,49 @@ let todo: String = "Move the motivation points to different slides to make it dy
 
 ![fill](images/background_thinking.jpeg)
 
-<!-- PEPI -->
 ---
 
 ## Thinking in terms of
 # _Observables_
 #### Or _Signals/Producers_ in ReactiveCocoa
 
-<!-- PEPI -->
 ---
 
 #### _Creating_ observables
-####  _Combining_ observables
+####  _Playing with_ observables
 #### _Observing_ observables
-<!-- PEPI -->
 
 ---
 
 ### _Creating_ observables
-####  _Combining_ observables
+####  _Playing with_ observables
 #### _Observing_ observables
-<!-- PEPI -->
 
 ---
 
-- External actions
+## Backend actions
+
+```swift
+Observable<String>.create { (observer) -> Disposable in
+    observer.onNext("next value")
+    observer.onCompleted()
+    return NopDisposable.instance // For disposing the action
+}
+```
+
+
+---
+
+## Existing Patterns
+
+#### _RxSwift_ provides _RxCocoa_
+###### (UIKit/Cocoa/Foundation reactive extensions)
+
+#### _ReactiveCocoa_ (Do it by yourself)
+
+---
+
+### Existing Patterns
 
 ```swift
 let button = UIButton()
@@ -234,53 +249,123 @@ button.rx_controlEvent(.TouchUpInside)
     print("The button was tapped")
   }
 ```
-<!-- PEPI -->
 
 ---
 
-## Creating Observables
-
-- Existing Patterns
-- Backend actions
-
-<!-- PEPI -->
-
----
-
-#### _Creating_ observables
-###  _Combining_ observables
-#### _Observing_ observables
-
-<!-- PEPI -->
-
----
-
-#### _Creating_ observables
-####  _Combining_ observables
-### _Observing_ observables
-
-<!-- PEPI -->
-
----
-
-## Combining Observables
-- Operators
+### Existing Patterns
 
 ```swift
-let todo: String = "Show some examples of operators"
+NSNotificationCenter.defaultCenter()
+	.rx_notification("my_notification", object: nil)
+	.subscribeNext { notification
+		// We got a notification
+	}
 ```
-<!-- PEPI -->
 
 ---
 
-## Observing
+### Existing Patterns
 
-- Binding
-- Subscribing
-
-<!-- PEPI -->
+```swift
+self.tableView.rx_delegate // DelegateProxy
+  .observe(#selector(UITableViewDelegate.tableView(_:didSelectRowAtIndexPath:)))
+  .subscribeNext { (parameters) in
+		// User did select cell at index path
+  }
+```
 
 ---
+
+#### _Creating_ observables
+###  _Playing with_ observables
+#### _Observing_ observables
+
+---
+
+- Mapping
+- Filtering
+- Flatmap
+- Throttle
+- Merge
+- CombineLatest
+- Catch & Retry
+- SkipWhile
+
+<!-- PEDRO -->
+
+---
+
+#### _Creating_ observables
+####  _Playing with_ observables
+### _Observing_ observables
+
+---
+
+## Subscribing
+
+```swift
+observable
+  subscribe { event
+		case .Next(let value):
+			print(value)
+		case .Completed:
+			print("completed")
+		case .Error(let error):
+			print("Error: \(error)")
+	}
+```
+
+---
+
+## Bind _changes_ over the time to an _Observable_*
+
+---
+
+### observable ► _bind_ ► observer
+#### _(observer subscribes to observable events)_
+
+---
+
+```swift
+observable // Observable<String>
+	.bindTo(field.rx_text)
+```
+
+---
+
+# `rx_text`? :confused:
+
+---
+
+# Reactive _Property_
+#### (Control Property in RxSwift)
+
+---
+
+# Subject
+
+#### _Observer_ & _Observable_
+##### (Yes.. both)
+
+---
+
+# Reactive _Variable_
+#### (Variable in RxSwift)
+#### (Property in ReactiveCocoa)
+
+---
+
+```swift
+let text: Variable<String> = Variable("")
+text.asObservable()
+	.subscribeNext { newText
+		print("The text did change. New text: \(newText)")
+	}
+
+```
+
+---
+
 
 # :weary: Caveats
 #### _Because yes..._
@@ -313,6 +398,12 @@ let todo: String = "Add code example"
 
 ---
 
+## Unsubscription
+// Disposable bag
+
+
+---
+
 ## Threading?
 
 ```swift
@@ -323,7 +414,7 @@ let todo: String = "Add code example"
 
 ## A great **power** comes with a great **responsibility**
 
-![fit](images/background_spiderman.png)
+![fill](images/background_spiderman.png)
 
 <!-- SAKY -->
 
@@ -337,12 +428,49 @@ let todo: String = "Add code example"
 
 ---
 
+## Prevents _stateful_ code
+
+---
+
+## Aims _unidirectional_ data flow
+
+
+---
+
+## _Retry/Throttling/Threading_ and data combination become _easier_
+
+---
+
+# But... :sweat:
+
+---
+
+## You couple your project to a _library_ :couple:
+
+---
+
+## Reactive code _spreads_ like a virus :alien:
+
+---
+
+## Define reactive design _guidelines_ and stick to them
+
+---
+
+## Retain cycles, observables lifecycles, debugging and some other _caveats_
+
+---
+
+## Have Reactive fun :tada:
+
+---
+
 # References
 
-rxmarbles.cmo
-http://community.rxswift.org
-
-<!-- PEPI -->
+[rxmarbles.cmo](rxmarbles.cmo)
+[http://community.rxswift.org](http://community.rxswift.org)
+[github.com/rxswift/rxswift](https://github.com/ReactiveX/RxSwift/)
+[github.com/reactivecocoa/reactivecocoa](https://github.com/reactivecocoa/reactivecocoa)
 
 ---
 
@@ -354,6 +482,4 @@ http://community.rxswift.org
 
 ---
 
-GITDO
-
-<!-- PEPI -->
+![fill](images/gitdo.png)
