@@ -159,7 +159,7 @@ self.fetchAccountCommandFactory.githubAccount()
 ---
 
 ## State contained in a *tree* of transformation *nodes*
-### (functionally pure)
+#### (functionally pure)
 
 ---
 
@@ -206,19 +206,17 @@ self.fetchAccountCommandFactory.githubAccount()
 
 ---
 
-#### _Creating_ observables
-####  _Playing with_ observables
-#### _Observing_ observables
+### Actions can be
+# **observed**
+### How? 🙄
+
+![fill](images/observe.jpg)
 
 ---
 
-### _Creating_ observables
-####  _Playing with_ observables
-#### _Observing_ observables
+# Operations
 
----
-
-## Backend actions
+> RxSwift
 
 ```swift
 Observable<String>.create { (observer) -> Disposable in
@@ -228,19 +226,27 @@ Observable<String>.create { (observer) -> Disposable in
 }
 ```
 
+> ReactiveCocoa
+
+```swift
+SignalProducer<String>.create { (observer, disposable) in
+	observer.sendNext("next value")
+	observer.sendComplete()
+}
+```
+
 
 ---
 
 ## Existing Patterns
 
-#### _RxSwift_ provides _RxCocoa_
-###### (UIKit/Cocoa/Foundation reactive extensions)
+#### _RxSwift_ ▶︎ RxCocoa (extensions)
 
-#### _ReactiveCocoa_ (Do it by yourself)
+#### _ReactiveCocoa_ ▶︎ DO IT YOURSELF
 
 ---
 
-### Existing Patterns
+# UIKit
 
 ```swift
 let button = UIButton()
@@ -252,7 +258,7 @@ button.rx_controlEvent(.TouchUpInside)
 
 ---
 
-### Existing Patterns
+# Notifications
 
 ```swift
 NSNotificationCenter.defaultCenter()
@@ -264,7 +270,7 @@ NSNotificationCenter.defaultCenter()
 
 ---
 
-### Existing Patterns
+# Delegates
 
 ```swift
 self.tableView.rx_delegate // DelegateProxy
@@ -276,28 +282,114 @@ self.tableView.rx_delegate // DelegateProxy
 
 ---
 
-#### _Creating_ observables
-###  _Playing with_ observables
-#### _Observing_ observables
+# _Playing_ 🏈
+### with Observables
+
+![fill](images/playing.jpeg)
 
 ---
 
-- Mapping
-- Filtering
-- Flatmap
-- Throttle
-- Merge
-- CombineLatest
-- Catch & Retry
-- SkipWhile
+## Observable
 
-<!-- PEDRO -->
+```swift
+let tracksFetcher = api.fetchTracks // Background
+	.asObservable()
+```
 
 ---
 
-#### _Creating_ observables
-####  _Playing with_ observables
-### _Observing_ observables
+## Error handling
+
+```swift
+let tracksFetcher = api.fetchTracks // Background
+	.asObservable()
+	.retry(3)
+	.catchErrorJustReturn([])
+```
+
+---
+
+## Mapping
+
+```swift
+let tracksFetcher = api.fetchTracks // Background
+	.asObservable()
+	.retry(3)
+	.catchErrorJustReturn([])
+	.map(TrackEntity.mapper().map)
+```
+
+---
+
+## Filtering
+
+```swift
+let tracksFetcher = api.fetchTracks // Background
+	.asObservable()
+	.retry(3)
+	.catchErrorJustReturn([])
+	.map(TrackEntity.mapper().map)
+	.filter { $0.name.contains(query) }
+```
+
+---
+
+## Flatmapping
+
+```swift
+let tracksFetcher = api.fetchTracks // Background
+	.asObservable()
+	.retry(3)
+	.catchErrorJustReturn([])
+	.map(TrackEntity.mapper().map)
+	.filter { $0.name.contains(query) }
+	.flatMap { self.rx_trackImage(track: $0) }
+```
+
+---
+
+## Observation thread
+
+```swift
+let tracksFetcher = api.fetchTracks // Background
+	.asObservable()
+	.retry(3)
+	.catchErrorJustReturn([])
+	.map(TrackEntity.mapper().map)
+	.filter { $0.name.contains(query) }
+	.flatMap { self.rx_trackImage(track: $0) }
+	.observeOn(MainScheduler.instance) // Main thread
+```
+
+---
+
+## Throttling
+#### _Tipical reactive example_
+
+```swift
+func tracksFetcher(query: String) -> Observable<[TrackEntity]>
+
+searchTextField
+	.rx_text.throttle(0.5, scheduler: MainScheduler.instance)
+	.flatmap(tracksFetcher)
+	.subscribeNext { tracks in
+		// Yai! Tracks searched
+	}
+```
+
+---
+
+# _Other_ operators
+
+Combining / Skipping Values / Deferring / Concatenation / Deferring / Take some values / Zipping
+
+> Ease plugging observables
+
+---
+
+# Observing 🤓
+### _events_
+
 
 ---
 
@@ -317,7 +409,7 @@ observable
 
 ---
 
-## Bind _changes_ over the time to an _Observable_*
+## Bind _changes_ over the time to an _Observable_
 
 ---
 
@@ -437,7 +529,7 @@ let todo: String = "Add code example"
 
 ---
 
-## _Retry/Throttling/Threading_ and data combination become _easier_
+## Data flow manipulation becomes _easier_
 
 ---
 
