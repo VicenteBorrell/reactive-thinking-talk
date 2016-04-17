@@ -675,7 +675,16 @@ text.asObservable()
 ## Debugging
 
 ```swift
-let todo: String = "Add code example"
+self.createComment(issueId: issueId, body: body).observable()
+    .observeOn(MainScheduler.instance)
+    .doOn(onError: { [weak self] error in
+        // show Error
+    })
+    .subscribeCompleted { [weak self] in
+        // show Success
+    }
+    .addDisposableTo(self.disposeBag)
+
 ```
 <!-- SAKY -->
 
@@ -685,7 +694,56 @@ let todo: String = "Add code example"
 ## Retain cycles
 
 ```swift
-let todo: String = "Add code example"
+class IssuePresenter {
+  let commandFactory = CommandFactory()
+
+  func fetch() {
+     commandFactory.fetchCommand.observable()
+     .bindTo { self.something }
+     .addDisposableTo(disposeBag)
+  }
+}
+
+```
+<!-- SAKY -->
+
+---
+
+## Retain cycles
+
+```swift
+class IssuePresenter {
+  let commandFactory = CommandFactory()
+
+  func fetch() {
+     commandFactory.fetchCommand.observable()
+     .bindTo { self.something }
+     .addDisposableTo(disposeBag)
+  }
+}
+
+presenter -> commandFactory -> fetchCommand -> presenter
+
+```
+<!-- SAKY -->
+
+---
+
+## Retain cycles
+
+```swift
+class IssuePresenter {
+  let commandFactory = CommandFactory()
+
+  func fetch() {
+     commandFactory.fetchCommand.observable()
+     .bindTo { [weak self] in self?.something }
+     .addDisposableTo(disposeBag)
+  }
+}
+
+presenter -> commandFactory -> fetchCommand -> presenter
+
 ```
 <!-- SAKY -->
 
@@ -710,6 +768,8 @@ let todo: String = "Add code example"
 ![fill](images/background_spiderman.png)
 
 <!-- SAKY -->
+
+don't remember what is this about xD
 
 ---
 
