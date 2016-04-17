@@ -115,13 +115,13 @@ let regex = NSRegularExpression(pattern: ".+", options: 0)
 
 ## XML
 ## HTML
-## *SLQ*
+## *SQL*
 
 ---
 
 ## XML
 ## HTML
-## SLQ
+## SQL
 ## *Reactive Programming*
 
 ---
@@ -168,9 +168,47 @@ self.fetchAccountCommandFactory.githubAccount()
 - [RxSwift](https://github.com/ReactiveX/RxSwift)
 - [ReactiveCocoa](https://github.com/reactivecocoa/reactivecocoa)
 - [BrightFutures](https://github.com/Thomvis/BrightFutures)
-- _More coming_
+- [ReactKit](https://github.com/ReactKit/ReactKit)
+- [Bond](https://github.com/SwiftBond/Bond)
+<br>
+- _More and more..._ [PromiseKit](https://github.com/mxcl/PromiseKit), [Bolts](https://github.com/BoltsFramework), [ReactiveKit](https://github.com/ReactiveKit/ReactiveKit)...
 
 ![fill](images/background_reading.jpg)
+
+---
+
+### What _library_ should i use? :sweat_smile:
+
+---
+
+### What _library_ should i use? :sweat_smile:
+### Do i need a _library_ for this? :hushed:
+
+---
+
+## Swift 
+
+```swift
+var userName: String {
+  didSet {
+    // React to changes in variables
+
+  }
+}
+```
+
+---
+
+## Swift
+
+```swift
+var userName: String {
+  didSet {
+    // React to changes in variables
+    view.updateTitle(userName)
+  }
+}
+```
 
 ---
 
@@ -182,18 +220,181 @@ self.fetchAccountCommandFactory.githubAccount()
 
 ---
 
-- Inmutability
+- immutability
 - Side states safe (clear source of truth)
 - Binding
 - Encapsulated Observable actions
 - Composable
-- Ease operatiosn
+- Ease operations
 - Threading (observer & execute)
 
 <!-- SAKY -->
 
 ---
 
+- immutability
+- Side states safe (clear source of truth)
+- _Binding_
+- Encapsulated Observable actions
+- Composable
+- Ease operations
+- Threading (observer & execute)
+
+---
+
+# Binding
+
+---
+
+# _UI_ Binding
+
+---
+
+# _UI_ Binding
+
+```swift
+status.asObservable()
+      .map {$0 == .LoggedIn}
+      .bindTo(actionButton.rx_enabled)
+```
+
+---
+
+# _UI_ Binding
+
+```swift
+status.asObservable()
+      .map {$0 == .LoggedIn}
+      .bindTo(actionButton.rx_enabled)
+
+userTextField.rx_text
+             .map { "Your name is \($0)" }
+             .bindTo(userLabel.rx_text)
+
+```
+
+---
+- immutability
+- Side states safe (clear source of truth)
+- Binding
+- Encapsulated Observable actions
+- _Composable_
+- Ease operations
+- Threading (observer & execute)
+
+---
+
+```swift
+Observable.combineLatest(firstName.rx_text, lastName.rx_text) { $0 + " " + $1 }
+          .map { "Greeting \($0)" }
+          .bindTo(greetingLabel.rx_text)
+```
+
+---
+
+```swift
+// Observable
+let issuesLocal = Local.fetchIssues(repositoryID: "1234") 
+
+```
+
+---
+
+```swift
+// Observable
+let issuesLocal = Local.fetchIssues(repositoryID: "1234")
+
+// Observable
+let issuesAPI = API.fetchIssues(repositoryID: "1234")
+  .map {
+     jsonToIssueModel($0) // map to local models
+  }
+
+```
+
+---
+
+```swift
+// Observable
+let issuesLocal = Local.fetchIssues(repositoryID: "1234")
+
+// Observable
+let issuesAPI = API.fetchIssues(repositoryID: "1234")
+  .map {
+     jsonToIssueModel($0) // map to local models
+  }
+
+let issues = Observable.concat(issuesLocal, issuesAPI)
+issues.bindTo(viewModel.issues) // then update UI
+
+```
+
+---
+
+- immutability
+- Side states safe (clear source of truth)
+- Binding
+- Encapsulated Observable actions
+- Composable
+- Ease operations
+- _Threading_ (observer & execute)
+
+---
+
+## Threading
+
+
+```swift
+
+imageURLs.flatMap { imageURL in
+              // Download images
+              API.fetchImage(imageURL) 
+          }
+
+```
+
+---
+
+## Threading
+
+
+```swift
+
+imageURLs.flatMap { imageURL in
+              // Download images
+              API.fetchImage(imageURL) 
+          }
+          .observeOn(operationScheduler) // Background
+          .map { imageData in
+              // Apply expensive operation to image
+              return decodeAndBlurImage(imageData) 
+          }
+
+```
+
+---
+
+## Threading
+
+```swift
+
+imageURLs.flatMap { imageURL in
+              // Download images
+              API.fetchImage(imageURL) 
+          }
+          .observeOn(operationScheduler)  // Background thread
+          .map { imageData in
+              // Apply expensive operation to image (bg)
+              return decodeAndBlurImage(imageData) 
+          }
+          .observeOn(MainScheduler.instance) // Main Thread
+          .subscribeNext { blurredImage in 
+              imageView.image = blurredImage
+          }
+
+```
+
+---
 ## Reactive Thinking :grimacing:
 
 ![fill](images/background_thinking.jpeg)
