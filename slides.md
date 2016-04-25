@@ -252,26 +252,14 @@ var userName: String {
 
 # _UI_ Binding
 
-```swift
-status.asObservable()
-      .map {$0 == .LoggedIn}
-      .bindTo(actionButton.rx_enabled)
-```
+![inline](images/uibinding1.png)
 
 ---
 
 # _UI_ Binding
 
-```swift
-status.asObservable()
-      .map {$0 == .LoggedIn}
-      .bindTo(actionButton.rx_enabled)
+![inline](images/uibinding2.png)
 
-userTextField.rx_text
-             .map { "Your name is \($0)" }
-             .bindTo(userLabel.rx_text)
-
-```
 
 ---
 - immutability
@@ -284,50 +272,11 @@ userTextField.rx_text
 
 ---
 
-```swift
-Observable.combineLatest(firstName.rx_text, lastName.rx_text) { $0 + " " + $1 }
-          .map { "Greeting \($0)" }
-          .bindTo(greetingLabel.rx_text)
-```
+![inline](images/combining2.png)
 
 ---
 
-```swift
-// Observable
-let issuesLocal = Local.fetchIssues(repositoryID: "1234") 
-
-```
-
----
-
-```swift
-// Observable
-let issuesLocal = Local.fetchIssues(repositoryID: "1234")
-
-// Observable
-let issuesAPI = API.fetchIssues(repositoryID: "1234")
-  .map {
-     jsonToIssueModel($0) // map to local models
-  }
-
-```
-
----
-
-```swift
-// Observable
-let issuesLocal = Local.fetchIssues(repositoryID: "1234")
-
-// Observable
-let issuesAPI = API.fetchIssues(repositoryID: "1234")
-  .map {
-     jsonToIssueModel($0) // map to local models
-  }
-
-let issues = Observable.concat(issuesLocal, issuesAPI)
-issues.bindTo(viewModel.issues) // then update UI
-
-```
+![inline](images/combining.png)
 
 ---
 
@@ -343,56 +292,7 @@ issues.bindTo(viewModel.issues) // then update UI
 
 ## Threading
 
-
-```swift
-
-imageURLs.flatMap { imageURL in
-              // Download images
-              API.fetchImage(imageURL) 
-          }
-
-```
-
----
-
-## Threading
-
-
-```swift
-
-imageURLs.flatMap { imageURL in
-              // Download images
-              API.fetchImage(imageURL) 
-          }
-          .observeOn(operationScheduler) // Background
-          .map { imageData in
-              // Apply expensive operation to image
-              return decodeAndBlurImage(imageData) 
-          }
-
-```
-
----
-
-## Threading
-
-```swift
-
-imageURLs.flatMap { imageURL in
-              // Download images
-              API.fetchImage(imageURL) 
-          }
-          .observeOn(operationScheduler)  // Background thread
-          .map { imageData in
-              // Apply expensive operation to image (bg)
-              return decodeAndBlurImage(imageData) 
-          }
-          .observeOn(MainScheduler.instance) // Main Thread
-          .subscribeNext { blurredImage in 
-              imageView.image = blurredImage
-          }
-
-```
+![inline](images/threading.png)
 
 ---
 ## Reactive Thinking :grimacing:
@@ -687,7 +587,7 @@ self.createComment(issueId: issueId, body: body).observable()
 
 ```
 <!-- SAKY -->
-
+// RXSWIFT: operador para debuggear -> muestra traza
 
 ---
 
@@ -804,13 +704,11 @@ don't remember what is this about xD
 
 ## Reactive code _spreads_ like a virus :alien:
 
+#### Overreactive
+
 ---
 
 ## Define reactive design _guidelines_ and stick to them
-
----
-
-## Retain cycles, observables lifecycles, debugging and some other _caveats_
 
 ---
 
